@@ -1,0 +1,38 @@
+/* Estilos Personalizados */
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Redondeado moderno en tarjetas */
+.card-custom {
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-custom:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+}
+
+/* Badges personalizados */
+.badge-language {
+    background-color: #eef2f6;
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Animación simple al cargar */
+tbody tr {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
