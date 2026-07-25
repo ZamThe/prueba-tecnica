@@ -5,20 +5,7 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Railway](https://img.shields.io/badge/Deploy-Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)
 
-Un software web de pila completa (*Full-Stack*) diseñado para consumir e integrar la API pública de GitHub. Permite sincronizar repositorios de usuarios específicos, almacenarlos en una base de datos relacional y gestionarlos mediante una interfaz web interactiva que ejecuta operaciones **CRUD** completas (*Crear, Leer, Actualizar y Eliminar*).
-
----
-
-## 📋 Tabla de Contenidos
-- [Vista General](#-vista-general)
-- [Arquitectura del Sistema](#-arquitectura-del-sistema)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
-- [Requisitos Previos](#-requisitos-previos)
-- [Instalación y Configuración](#-instalación-y-configuración)
-- [Variables de Entorno](#-variables-de-entorno)
-- [Endpoints de la API](#-endpoints-de-la-api)
-- [Despliegue](#-despliegue)
+Un software web de pila completa (*Full-Stack*) creado para utilizar e integrar la API pública de GitHub. Permite la sincronización de los repositorios de usuarios concretos, su almacenamiento en una base de datos relacional y su gestión a través de una interfaz web interactiva que lleva a cabo operaciones completas **CRUD** (Crear, Leer, Actualizar y Eliminar).
 
 ---
 
@@ -33,7 +20,7 @@ El sistema actúa como un puente entre la API de GitHub y un panel de administra
 
 ## 🏗️ Arquitectura del Sistema
 
-La solución adopta un patrón de **Arquitectura Monolítica Ligera** con separación clara de responsabilidades (*Clean Architecture*):
+La solución adopta un patrón de **Arquitectura Monolítica Ligera** con separación clara de responsabilidades:
 
 ```text
 ┌───────────────────────────────────────────────────────────┐
@@ -58,3 +45,6 @@ La solución adopta un patrón de **Arquitectura Monolítica Ligera** con separa
 ┌───────────────────────────────────────────────────────────┐
 │              Base de Datos (SQLite3 / Postgres)           │
 └───────────────────────────────────────────────────────────┘
+
+
+
