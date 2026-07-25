@@ -18,6 +18,27 @@ El sistema actúa como un puente entre la API de GitHub y un panel de administra
 
 ---
 
+## ⚙️ Componentes Desarrollados
+
+- **API RESTful con FastAPI:** CRUD completo para la gestión de repositorios.
+- **Módulo de Sincronización:** Integración directa con la API pública de GitHub.
+- **Persistencia de Datos:** Implementación con SQLAlchemy ORM (compatible con SQLite y PostgreSQL).
+- **Interfaz de Usuario SPA:** Panel dinámico embebido desarrollado con HTML, JS y Bootstrap.
+- **Contenerización y Despliegue:** Empaquetado con Docker y despliegue continuo en Railway.
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+- **Lenguaje:** Python 3.11
+- **Backend Framework:** FastAPI, Uvicorn
+- **ORM & Validación:** SQLAlchemy, Pydantic v2
+- **Peticiones HTTP:** `httpx` / `requests`
+- **Frontend:** Vanilla JS, HTML, Bootstrap 5
+- **Infraestructura & DevOps:** Docker, Railway
+
+---
+
 ## 🏗️ Arquitectura del Sistema
 
 La solución adopta un patrón de **Arquitectura Monolítica Ligera** con separación clara de responsabilidades:
@@ -25,17 +46,17 @@ La solución adopta un patrón de **Arquitectura Monolítica Ligera** con separa
 ```text
 ┌───────────────────────────────────────────────────────────┐
 │                     Navegador Web                         │
-│       (SPA: HTML5 + Bootstrap 5 + Vanilla JavaScript)      │
+│        (SPA: HTML5 + Bootstrap 5 + Vanilla JavaScript)      │
 └─────────────────────────────┬─────────────────────────────┘
                               │ HTTP / JSON
                               ▼
 ┌───────────────────────────────────────────────────────────┐
-│                       FastAPI                             │
+│                        FastAPI                            │
 │ ┌──────────────┐    ┌──────────────┐    ┌───────────────┐ │
 │ │  Endpoints   │───>│   Services   │───>│ API de GitHub │ │
 │ └──────────────┘    └──────────────┘    └───────────────┘ │
-│        │                   │                              │
-│        ▼                   ▼                              │
+│        │                     │                            │
+│        ▼                     ▼                            │
 │ ┌──────────────┐    ┌──────────────┐                      │
 │ │   Schemas    │    │ Models (ORM) │                      │
 │ └──────────────┘    └──────────────┘                      │
@@ -43,8 +64,6 @@ La solución adopta un patrón de **Arquitectura Monolítica Ligera** con separa
                               │ SQLAlchemy
                               ▼
 ┌───────────────────────────────────────────────────────────┐
-│              Base de Datos (SQLite3 / Postgres)           │
-└───────────────────────────────────────────────────────────┘
-
-
+│          Base de Datos (SQLite3 / Postgres)               │
+└─────────────────────────────┴─────────────────────────────┘
 
