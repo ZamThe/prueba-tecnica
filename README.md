@@ -1,34 +1,40 @@
-API de Gestión y Sincronización de Repositorios (Prueba Técnica)
+🚀 Proyecto: Gestor de repositorios de GitHub y sincronización de API
+Esta iniciativa es un software web de pila completa que ha sido creado para utilizar la API pública de GitHub, sincronizar repositorios de usuarios concretos, almacenarlos en una base de datos y proporcionar una interfaz web interactiva para llevar a cabo las operaciones CRUD (Actualizar, Leer, Crear y Eliminar) sobre los registros.
 
-Aplicación web full-stack desarrollada para la consulta, gestión (CRUD) y sincronización automática de repositorios públicos de GitHub mediante una API RESTful en **FastAPI** y una interfaz interactiva con **Bootstrap 5** y JavaScript vanila.
+
+Arquitectura Utilizada
+La solución utiliza una arquitectura monolítica ligera con separación limpia de capas:
+
+Frontend: Interfaz estática (Single Page Application - SPA) basada en HTML5, Vanilla JavaScript (ES6+) y Bootstrap 5, servida directamente desde FastAPI.
+
+Backend: FastAPI (Python 3.11) estructurado en módulos:
+
+api/: Definición de endpoints de la API.
+
+core/: Configuración del sistema, seguridad y sesión de Base de Datos.
+
+models/: Modelos ORM de SQLAlchemy.
+
+schemas/: Esquemas de validación de datos con Pydantic.
+
+services/: Lógica de negocio e integración con la API externa de GitHub.
+
+Base de Datos: SQLite3 / PostgreSQL gestionado a través de SQLAlchemy ORM.
 
 
-🛠️ Tecnologías Utilizadas
+Tecnologías Seleccionadas
+Lenguaje: Python 3.11
 
-**Backend**
-- **Python 3.10+**
-- **FastAPI**: Framework web asíncrono para la creación de la API.
-- **SQLAlchemy**: ORM para la interacción con la base de datos.
-- **Pydantic**: Validación y serialización de esquemas de datos.
-- **Uvicorn**: Servidor ASGI de alto rendimiento.
-- **PostgreSQL / SQLite**: Base de datos relacional para el almacenamiento local.
+Framework Web: FastAPI (v0.110+)
 
-### **Frontend**
-- **HTML5 & CSS3** (Custom Styles & Animations).
-- **Bootstrap 5**: Componentes de UI y modales interactivos.
-- **JavaScript ES6+**: Comunicación asíncrona mediante `Fetch API`.
+Servidor ASGI: Uvicorn / Gunicorn
 
----
+ORM & DB: SQLAlchemy, Pydantic v2, SQLite3
 
-📋 Características Principales
+Cliente HTTP: httpx / requests
 
-- ✅ **Sincronización con GitHub**: Importación y actualización dinámica de repositorios de cualquier usuario mediante la API oficial de GitHub.
-- ✅ **CRUD Completo**:
-  - **Crear**: Registro manual de repositorios locales.
-  - **Leer**: Listado de repositorios almacenados en la base de datos local.
-  - **Editar**: Actualización de datos (lenguaje, estrellas, propietario, etc.).
-  - **Eliminar**: Eliminación permanente de un registro local.
-- ✅ **Navegación Segura**: Normalización automática de URLs hacia GitHub (`https://`) abriendo en nuevas pestañas sin interferir con las rutas locales.
-- ✅ **Manejo de Errores y Validaciones**: Sanitización de caracteres (anti-XSS) y respuestas HTTP adecuadas (`200`, `201`, `400`, `404`, `422`).
+Frontend: HTML5, CSS3, JavaScript (Fetch API), Bootstrap 5, Bootstrap Icons
 
----
+PaaS / Despliegue: Railway
+
+
