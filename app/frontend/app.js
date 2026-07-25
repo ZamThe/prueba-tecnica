@@ -1,9 +1,8 @@
-// Ajusta esta URL si el prefijo de tus endpoints en FastAPI cambia
-const API_URL = "http://localhost:8000/api/v1"; 
+ const API_URL = "http://localhost:8000/api/v1"; 
 
 let repoModal;
 
-// Cargar datos automáticamente al abrir la página
+
 document.addEventListener("DOMContentLoaded", () => {
     const modalElement = document.getElementById('repoModal');
     if (modalElement) {
@@ -12,9 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchRepositories();
 });
 
-/**
- * Función auxiliar para asegurar que las URLs tengan el protocolo https://
- */
+
 function normalizeUrl(url) {
     if (!url) return '';
     const trimmed = String(url).trim();
@@ -25,9 +22,7 @@ function normalizeUrl(url) {
     return trimmed;
 }
 
-/**
- * 1. OBTENER Y MOSTRAR REPOSITORIOS (READ)
- */
+
 async function fetchRepositories() {
     const tableBody = document.getElementById('repoTableBody');
     if (!tableBody) return;
@@ -62,10 +57,9 @@ async function fetchRepositories() {
         }
 
         repos.forEach(repo => {
-            // Se usa encodeURIComponent para pasar el objeto de forma segura al modal
+    
             const repoJson = encodeURIComponent(JSON.stringify(repo));
-            
-            // Garantizar que la URL sea absoluta para no causar un 404 local
+          
             const githubUrl = normalizeUrl(repo.html_url);
 
             tableBody.innerHTML += `
@@ -102,9 +96,7 @@ async function fetchRepositories() {
     }
 }
 
-/**
- * 2. SINCRONIZAR DESDE GITHUB
- */
+
 async function syncGithub() {
     const usernameInput = document.getElementById('usernameInput');
     const statusDiv = document.getElementById('syncStatus');
@@ -135,27 +127,25 @@ async function syncGithub() {
 
         if (response.ok) {
             if (statusDiv) {
-                statusDiv.innerHTML = `<span class="text-success">✅ ${escapeHtml(result.message || 'Sincronización realizada correctamente.')}</span>`;
+                statusDiv.innerHTML = `<span class="text-success"> ${escapeHtml(result.message || 'Sincronización realizada correctamente.')}</span>`;
             }
-            fetchRepositories(); // Refresca la tabla automáticamente
+            fetchRepositories(); 
         } else {
             console.error("Error del servidor en sync:", result);
             if (statusDiv) {
                 const detail = typeof result.detail === 'string' ? result.detail : (result.message || 'No se pudo sincronizar.');
-                statusDiv.innerHTML = `<span class="text-danger">❌ Error (${response.status}): ${escapeHtml(detail)}</span>`;
+                statusDiv.innerHTML = `<span class="text-danger"> Error (${response.status}): ${escapeHtml(detail)}</span>`;
             }
         }
     } catch (error) {
         console.error("Error de red al sincronizar:", error);
         if (statusDiv) {
-            statusDiv.innerHTML = `<span class="text-danger">❌ Error de conexión: ${escapeHtml(error.message)}</span>`;
+            statusDiv.innerHTML = `<span class="text-danger"> Error de conexión: ${escapeHtml(error.message)}</span>`;
         }
     }
 }
 
-/**
- * 3. GUARDAR REPOSITORIO (CREATE / UPDATE)
- */
+
 async function saveRepository() {
     const id = document.getElementById('repoId').value;
     const name = document.getElementById('repoName').value.trim();
@@ -169,12 +159,12 @@ async function saveRepository() {
         return;
     }
 
-    // Asegurar formato de URL adecuado antes de enviarla a FastAPI
+    
     const html_url = normalizeUrl(rawUrl);
 
     const isEdit = id !== "";
 
-    // Construcción del objeto payload
+   
     const payload = { 
         name, 
         owner, 
@@ -183,7 +173,7 @@ async function saveRepository() {
         html_url 
     };
 
-    // Si es CREACIÓN, enviamos github_id y full_name requeridos por Pydantic
+
     if (!isEdit) {
         payload.github_id = Math.floor(100000 + Math.random() * 900000); // ID numérico aleatorio
         payload.full_name = `${owner}/${name}`;
@@ -216,9 +206,7 @@ async function saveRepository() {
     }
 }
 
-/**
- * 4. ELIMINAR REPOSITORIO (DELETE)
- */
+
 async function deleteRepository(id) {
     if (!confirm(`¿Estás seguro de que deseas eliminar el repositorio #${id}?`)) return;
 
@@ -239,7 +227,7 @@ async function deleteRepository(id) {
     }
 }
 
-// Helper para limpiar/preparar el modal de creación
+
 function openCreateModal() {
     const form = document.getElementById('repoForm');
     if (form) form.reset();
@@ -248,7 +236,7 @@ function openCreateModal() {
     if (repoModal) repoModal.show();
 }
 
-// Auxiliar para desempaquetar el objeto codificado antes de abrir el modal
+
 function handleEditClick(encodedRepo) {
     try {
         const repo = JSON.parse(decodeURIComponent(encodedRepo));
@@ -258,7 +246,7 @@ function handleEditClick(encodedRepo) {
     }
 }
 
-// Helper para cargar los datos en el modal de edición
+
 function openEditModal(repo) {
     document.getElementById('repoId').value = repo.id || '';
     document.getElementById('repoName').value = repo.name || '';
@@ -270,7 +258,7 @@ function openEditModal(repo) {
     if (repoModal) repoModal.show();
 }
 
-// Función auxiliar para prevenir inyección de caracteres en el HTML
+
 function escapeHtml(text) {
     if (!text) return '';
     return String(text)

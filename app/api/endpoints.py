@@ -12,10 +12,10 @@ from app.schemas.repository import (
 )
 from app.services.external_api import sync_github_repositories
 
-# Quitamos el prefix="/api" para que no se duplique con settings.API_V1_STR de main.py
+
 router = APIRouter(tags=["Repositories & System"])
 
-# --- HEALTH CHECK ---
+
 @router.get(
     "/health", 
     status_code=status.HTTP_200_OK,
@@ -25,7 +25,7 @@ router = APIRouter(tags=["Repositories & System"])
 def health_check():
     return {"status": "healthy", "database": "connected"}
 
-# --- SYNC CON API EXTERNA ---
+
 @router.post(
     "/sync/{username}", 
     response_model=SyncResultSchema,
@@ -36,7 +36,7 @@ def sync_user_repos(username: str, db: Session = Depends(get_db)):
     result = sync_github_repositories(username, db)
     return result
 
-# --- GET ALL (CON FILTROS Y PAGINACIÓN) ---
+
 @router.get(
     "/repositories", 
     response_model=List[RepositoryResponse],
@@ -58,7 +58,7 @@ def get_repositories(
     
     return query.offset(skip).limit(limit).all()
 
-# --- GET BY ID ---
+
 @router.get(
     "/repositories/{repo_id}", 
     response_model=RepositoryResponse,
@@ -74,7 +74,7 @@ def get_repository_by_id(repo_id: int, db: Session = Depends(get_db)):
         )
     return repo
 
-# --- POST (CREAR MANUALMENTE) ---
+
 @router.post(
     "/repositories", 
     response_model=RepositoryResponse, 
@@ -96,7 +96,6 @@ def create_repository(repo_data: RepositoryCreate, db: Session = Depends(get_db)
     db.refresh(new_repo)
     return new_repo
 
-# --- PUT (ACTUALIZAR) ---
 @router.put(
     "/repositories/{repo_id}", 
     response_model=RepositoryResponse,
@@ -119,7 +118,7 @@ def update_repository(repo_id: int, repo_data: RepositoryUpdate, db: Session = D
     db.refresh(repo)
     return repo
 
-# --- DELETE ---
+
 @router.delete(
     "/repositories/{repo_id}", 
     status_code=status.HTTP_204_NO_CONTENT,
