@@ -8,11 +8,15 @@ from fastapi.responses import FileResponse
 from app.core.config import settings
 from app.api.endpoints import router as api_router
 
+from app.core.database import engine, Base  
+from app.models import repository  
+
+Base.metadata.create_all(bind=engine)
+
 app = FastAPI(
     title=settings.PROJECT_NAME,
     openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,17 +26,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(api_router, prefix=settings.API_V1_STR)
-
 
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 
-
 if FRONTEND_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
-
 
 @app.get("/", response_class=FileResponse)
 def read_root():
